@@ -29,16 +29,25 @@
         }
 
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background: rgba(70, 0, 110, 0.95);
-            box-shadow: 0 0 12px #c599ff88;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4vw; /* use viewport width for horizontal padding */
+    background: rgba(70, 0, 110, 0.95);
+    box-shadow: 0 0 12px #c599ff88;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: clamp(1.2rem, 2vw, 1.7rem); /* scales between 1.2rem and 1.7rem */
+    font-weight: 900;
+    color: #dbaaff;
+    letter-spacing: 2px;
+    user-select: none;
+}
+
 
        @keyframes bounceLogo {
     0%, 100% {
