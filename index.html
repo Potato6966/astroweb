@@ -2,67 +2,280 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Astro Software</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #0b0018;
+      color: #eee;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(40, 0, 70, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #c599ff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: #d5b3ff;
+    }
+
+    header p {
+      margin-top: 1rem;
+      color: #ccc;
+      font-size: 1.2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.7rem 2rem;
+      background: #a663ff;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #c599ff;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #c599ff;
+      margin-bottom: 2rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: rgba(60, 0, 90, 0.7);
+      padding: 1.5rem;
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px #a763ff;
+    }
+
+    .product-card img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+    }
+
+    .product-card h3 {
+      margin-bottom: 0.5rem;
+      color: #e8d5ff;
+    }
+
+    .product-card p {
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+
+    .buy-now {
+      display: inline-block;
+      padding: 0.5rem 1.2rem;
+      background: #b57dff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .buy-now:hover {
+      background: #cfa6ff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #1a002d;
+      color: #999;
+    }
+  </style>
 </head>
 <body>
+  <canvas id="bg-canvas"></canvas>
 
-<nav>
-  <div class="logo">Astro Software</div>
-  <ul>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+  <nav>
+    <div class="logo">Astro Software</div>
+    <ul>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-<header>
-  <canvas id="particle-canvas"></canvas>
-  <div class="hero-content">
-    <h1>Welcome to Astro Software</h1>
-    <p>Cutting-edge technology solutions powered by purple plasma energy.</p>
-    <a href="#features" class="btn">Explore Features</a>
-  </div>
-</header>
+  <header>
+    <h1>Innovate with Astro Software</h1>
+    <p>Pioneering futuristic tech solutions in the purple zone.</p>
+    <a href="https://astroud.sellpass.io/" class="btn" target="_blank">Explore Products</a>
+  </header>
 
-<section id="features">
-  <h2>Features</h2>
-  <div class="features">
-    <div class="feature-card">
-      <h3>Fast Performance</h3>
-      <p>Experience lightning-fast speeds and ultra-responsive systems optimized for maximum efficiency.</p>
+  <section id="products">
+    <h2>Our Products</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="https://via.placeholder.com/300x180/8a2be2/ffffff?text=Astro+Core" alt="Astro Core" />
+        <h3>Astro Core Suite</h3>
+        <p>All-in-one platform for high-speed, scalable development.</p>
+        <a href="https://astroud.sellpass.io/" class="buy-now" target="_blank">Buy Now</a>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/300x180/7b1fa2/ffffff?text=Astro+Cloud" alt="Astro Cloud" />
+        <h3>Astro Cloud Pro</h3>
+        <p>Secure and seamless cloud-native tools for enterprise teams.</p>
+        <a href="https://astroud.sellpass.io/" class="buy-now" target="_blank">Buy Now</a>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/300x180/6a1b9a/ffffff?text=Astro+Analytics" alt="Astro Analytics" />
+        <h3>Astro Analytics</h3>
+        <p>Turn raw data into real-time insights and dashboards.</p>
+        <a href="https://astroud.sellpass.io/" class="buy-now" target="_blank">Buy Now</a>
+      </div>
     </div>
-    <div class="feature-card">
-      <h3>Secure & Reliable</h3>
-      <p>Your data and privacy are our top priority with state-of-the-art security measures in place.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Cloud Integration</h3>
-      <p>Seamlessly connect with cloud platforms for scalable and flexible solutions.</p>
-    </div>
-    <div class="feature-card">
-      <h3>User Friendly</h3>
-      <p>Intuitive interfaces and simple workflows designed for users of all skill levels.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section id="about">
-  <h2>About Astro Software</h2>
-  <p>At Astro Software, we blend innovation with passion to deliver futuristic technology products and services. Our expert team thrives on pushing the boundaries of what’s possible, harnessing purple plasma-inspired designs and solutions.</p>
-</section>
+  <section id="about">
+    <h2>About Us</h2>
+    <p style="text-align: center; max-width: 800px; margin: auto; color: #ccc;">
+      Astro Software is a visionary tech company delivering futuristic software experiences. From cloud infrastructure to real-time analytics, we power innovators with tools built for tomorrow.
+    </p>
+  </section>
 
-<section id="contact">
-  <h2>Contact Us</h2>
-  <p>Have questions or want to work together? Reach out to us and let’s create something extraordinary.</p>
-  <p>Discord: <a href="https://discord.gg/astrosoftware">discord.gg/astrosoftware</a></p>
-</section>
+  <section id="contact">
+    <h2>Contact</h2>
+    <p style="text-align: center; color: #ccc;">Email us at <a href="mailto:info@astrosoftware.com" style="color: #c599ff;">info@astrosoftware.com</a></p>
+  </section>
 
-<footer>
-  &copy; 2025 Astro Software. All rights reserved.
-</footer>
+  <footer>
+    &copy; 2025 Astro Software. All rights reserved.
+  </footer>
 
-<script src="script.js"></script>
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    function Particle() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.radius = Math.random() * 2;
+      this.dx = (Math.random() - 0.5) * 0.8;
+      this.dy = (Math.random() - 0.5) * 0.8;
+      this.color = '#a763ff';
+    }
+
+    Particle.prototype.draw = function () {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    };
+
+    Particle.prototype.update = function () {
+      this.x += this.dx;
+      this.y += this.dy;
+
+      if (this.x < 0 || this.x > canvas.width) this.dx *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.dy *= -1;
+
+      this.draw();
+    };
+
+    function init() {
+      particles = [];
+      for (let i = 0; i < 100; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => p.update());
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+  </script>
 </body>
 </html>
