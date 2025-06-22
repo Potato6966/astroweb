@@ -84,6 +84,76 @@
     }
 }
 
+/* Hide nav links on mobile by default */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Hamburger button styling */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 24px;
+  position: relative;
+  z-index: 20;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  display: block;
+  background-color: #dbaaff;
+  height: 3px;
+  border-radius: 2px;
+  position: absolute;
+  width: 100%;
+  transition: 0.3s ease;
+}
+
+.hamburger {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hamburger::before {
+  top: 0;
+}
+
+.hamburger::after {
+  bottom: 0;
+}
+
+/* Hide nav links and show hamburger on small screens */
+@media (max-width: 720px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 60px; /* height of nav */
+    right: 0;
+    background: rgba(70, 0, 110, 0.95);
+    height: calc(100vh - 60px);
+    width: 200px;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: -4px 0 15px #c599ff88;
+    z-index: 15;
+  }
+
+  .nav-links.open {
+    transform: translateX(0);
+  }
+}
 
 
 
@@ -415,14 +485,18 @@
 
 <body>
     <nav>
-        <div class="logo">Astro Software</div>
-        <ul>
-            <li><a href="#products">Products</a></li>
-            <li><a href="#how-we-operate">How We Operate</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+  <div class="logo">Astro Software</div>
+  <button class="nav-toggle" aria-label="Toggle navigation">
+    <span class="hamburger"></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#how-we-operate">How We Operate</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
 
     <header>
         <a href="#top" aria-label="Go to top">
@@ -583,6 +657,15 @@
   window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+  });
+
+
+        const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    navToggle.classList.toggle('active');
   });
 </script>
 
