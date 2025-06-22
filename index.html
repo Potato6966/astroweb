@@ -57,12 +57,24 @@
 
 .floating-logo {
     animation: bounceLogo 2s ease-in-out infinite;
-    width: 690px;
+    width: 80vw;        /* 80% of the viewport width */
+    max-width: 690px;   /* do not exceed original max width */
     height: auto;
     border-radius: 30px;
     box-shadow: 0 0 20px 8px #c599ffcc;
     border: 4px solid #d6aaff;
 }
+
+/* Optional: tweak size on very small screens */
+@media (max-width: 400px) {
+    .floating-logo {
+        width: 90vw;    /* slightly bigger on small phones */
+        max-width: none;
+        border-radius: 20px;
+        border-width: 3px;
+    }
+}
+
 
 
 
