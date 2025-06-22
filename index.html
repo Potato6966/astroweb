@@ -15,39 +15,11 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body {
-    background: black;
-    color: #eee;
-    overflow-x: hidden;
-    position: relative; /* for pseudo element */
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    background: transparent;
-    z-index: 0;
-    background-image: radial-gradient(white 2px, transparent 2px);
-    background-repeat: repeat;
-    background-size: 20px 20px;
-    animation: fall 10s linear infinite;
-}
-
-/* The falling animation */
-@keyframes fall {
-    0% {
-        background-position: 0 -100vh;
-    }
-    100% {
-        background-position: 0 100vh;
-    }
-}
-
+       body {
+            background: linear-gradient(135deg, #0b0018, #3a005f);
+            color: #eee;
+            overflow-x: hidden;
+        }
 
         canvas {
             position: fixed;
@@ -522,5 +494,76 @@ body::before {
     </section>
 
 </body>
+    <script>
+  const canvas = document.createElement('canvas');
+  document.body.appendChild(canvas);
+  canvas.style.position = 'fixed';
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.zIndex = '-1';
+  canvas.style.width = '100vw';
+  canvas.style.height = '100vh';
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const ctx = canvas.getContext('2d');
+
+  const starsCount = 150;
+  const stars = [];
+
+  function randomRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function createStars() {
+    for (let i = 0; i < starsCount; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: randomRange(0.3, 1.2),
+        speed: randomRange(0.05, 0.3),
+        opacity: randomRange(0.3, 1),
+        twinkleDir: 1
+      });
+    }
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'white';
+    stars.forEach(star => {
+      // twinkle effect
+      star.opacity += 0.01 * star.twinkleDir;
+      if (star.opacity >= 1) star.twinkleDir = -1;
+      if (star.opacity <= 0.3) star.twinkleDir = 1;
+
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(255,255,255,${star.opacity.toFixed(2)})`;
+      ctx.fill();
+
+      // move star downward slowly
+      star.y += star.speed;
+      if (star.y > canvas.height) {
+        star.y = 0;
+        star.x = Math.random() * canvas.width;
+      }
+    });
+  }
+
+  function animate() {
+    drawStars();
+    requestAnimationFrame(animate);
+  }
+
+  createStars();
+  animate();
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+
 
 </html>
