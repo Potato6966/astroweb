@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>🌌 Astro Software 🚀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b0018, #3a005f);
+            color: #eee;
+            overflow-x: hidden;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(70, 0, 110, 0.95);
+            box-shadow: 0 0 12px #c599ff88;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+       @keyframes bounceLogo {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-20px);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    70% {
+        transform: translateY(-10px);
+    }
+}
+
+.floating-logo {
+    animation: bounceLogo 2s ease-in-out infinite;
+    width: 630px;
+    height: auto;
+}
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: #dbaaff;
+            letter-spacing: 2px;
+            user-select: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #dabaff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px #e3bfff;
+        }
+
+        header {
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, #3f007f, #8a32ff);
+            box-shadow: inset 0 0 60px #c599ff88;
+            border-radius: 0 0 60px 60px;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            color: #ffe3ff;
+            text-shadow: 0 0 10px #c599ff;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: #e3ccffcc;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2.5rem;
+            background: linear-gradient(45deg, #b57dff, #d6aaff);
+            color: #3a005f;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            box-shadow: 0 0 20px #d6aaffaa;
+            text-decoration: none;
+            transition: background 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #d6aaff, #b57dff);
+            box-shadow: 0 0 35px #e3bfff;
+            color: #2b0045;
+        }
+
+        section {
+            padding: 4rem 2rem;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            color: #e6c7ff;
+            margin-bottom: 2rem;
+            letter-spacing: 1.2px;
+            text-shadow: 0 0 10px #b57dffaa;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card,
+        .review,
+        .operate-card {
+            background: rgba(80, 0, 110, 0.7);
+            padding: 1.8rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: transform 0.3s ease, border 0.3s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 0 10px #7a44ff44;
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 10px #b57dff,
+                    0 0 25px #a663ff,
+                    0 0 40px #c599ff,
+                    0 0 60px #d0aaff;
+            }
+
+            50% {
+                box-shadow:
+                    0 0 20px #d3a9ff,
+                    0 0 40px #c3aaff,
+                    0 0 55px #d5bfff,
+                    0 0 80px #e5cfff;
+            }
+        }
+
+        .product-card:hover,
+        .review:hover,
+        .operate-card:hover {
+            transform: scale(1.07);
+            border: 2px solid #e2afff;
+            animation: pulseGlow 2.5s infinite;
+            box-shadow: 0 0 30px #c599ffcc;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1.2rem;
+            border-radius: 15px;
+            filter: drop-shadow(0 0 6px #c599ffbb);
+        }
+
+        .product-card h3 {
+            margin-bottom: 0.6rem;
+            color: #f0dbff;
+            font-size: 1.5rem;
+        }
+
+        .product-card p {
+            color: #d6c9ffcc;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+            min-height: 3.5rem;
+        }
+
+        .buy-now {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: #bb8cff;
+            color: #2a005f;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 30px;
+            box-shadow: 0 0 18px #bb8cffaa;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .buy-now:hover {
+            background: #d3aaff;
+            box-shadow: 0 0 30px #d3aaffcc;
+            color: #3a007f;
+        }
+
+        /* New How We Operate section as 2-column grid */
+        #how-we-operate {
+            max-width: 1000px;
+            margin: 2rem auto 4rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.6rem 3rem;
+            justify-content: center;
+        }
+
+        .how-operate-box {
+            background: rgba(80, 0, 110, 0.75);
+            padding: 1.6rem 2rem;
+            border-radius: 18px;
+            border: 2px solid transparent;
+            box-shadow: 0 0 12px #b57dff99;
+            width: 100%;
+            color: #e1c9ffcc;
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.3;
+            cursor: default;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .how-operate-box:hover,
+        .how-operate-box:focus {
+            border-color: #d6aaffcc;
+            box-shadow: 0 0 30px #d6aaffcc;
+            outline: none;
+        }
+
+        .how-operate-box h3 {
+            font-size: 1.3rem;
+            color: #d9afff;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .how-operate-box h3 span {
+            font-size: 1.5rem;
+        }
+
+        /* Customer Reviews */
+        .reviews {
+            max-width: 1000px;
+            margin: 2rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .review {
+            font-style: italic;
+            color: #d4c9ffcc;
+            position: relative;
+            padding: 1.5rem 1.3rem;
+        }
+
+        .review p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .review cite {
+            display: block;
+            font-style: normal;
+            font-weight: 700;
+            color: #c599ff;
+            text-align: right;
+            font-size: 1rem;
+        }
+
+        /* Contact Box Styling */
+        #contact {
+            max-width: 600px;
+            margin: 1rem auto 3rem;
+            padding: 2rem 2.5rem;
+            background: rgba(100, 30, 150, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 0 25px #bb8cffaa;
+            color: #e3ccffcc;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: box-shadow 0.4s ease, border-color 0.3s ease;
+        }
+
+        #contact h2 {
+            margin-bottom: 1rem;
+            color: #e6c7ff;
+            text-shadow: 0 0 10px #b57dffaa;
+        }
+
+        #contact p {
+            margin-bottom: 1.8rem;
+            line-height: 1.4;
+        }
+
+        #contact a {
+            color: #d6aaff;
+            font-weight: 700;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        #contact a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px #d6aaff;
+        }
+
+        #contact:focus,
+        #contact:hover {
+            border-color: #e2afff;
+            box-shadow: 0 0 35px #d6aaffcc;
+            outline: none;
+        }
+
+        /* Discord button styling */
+        .discord-btn {
+            margin-top: 1.5rem;
+            background: #5865F2; /* Discord blurple */
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 0.75rem 2.5rem;
+            border-radius: 50px;
+            box-shadow: 0 0 15px #5865F2bb;
+            display: inline-block;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .discord-btn:hover,
+        .discord-btn:focus {
+            background: #4752c4;
+            box-shadow: 0 0 25px #4752c4cc;
+            outline: none;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 720px) {
+            #how-we-operate {
+                max-width: 90vw;
+                grid-template-columns: 1fr;
+                gap: 1.2rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">Astro Software</div>
+        <ul>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#how-we-operate">How We Operate</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <a href="#top" aria-label="Go to top">
+            <img src="./image.png" alt="Astro Software Logo" class="floating-logo" />
+        </a>
+
+        <h1>Welcome to Astro Software</h1>
+        <p>Astro Software equips you with cutting-edge tools and unwavering support to dominate the competition. Unlock your true
+        power with instant-access, undetectable products designed to keep you steps ahead — always in control, always
+        unstoppable.</p>
+        <a href="https://astroud.sellpass.io/" class="btn">Explore Our Products</a>
+    </header>
+
+    <section id="products">
+        <h2>Our Products</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="./productCard (1).avif" alt="AstroOS" />
+                <h3>Temp Spoofer</h3>
+                <p>A powerful and stealth-enhanced Temporary HWID Spoofer, designed for safe and reliable bypassing of even the most
+                advanced anti-cheat systems.</p>
+                <a href="https://astroud.sellpass.io/" class="buy-now">Buy Now</a>
+            </div>
+            <div class="product-card">
+                <img src="./productCard.avif" alt="CosmoChat" />
+                <h3>Perm Spoofer</h3>
+                <p>Say goodbye to HWID bans with our advanced Permanent Spoofer – built for maximum security and long-lasting protection.</p>
+                <a href="https://astroud.sellpass.io/" class="buy-now">Buy Now</a>
+            </div>
+            <div class="product-card">
+                <img src="./productCard (2).avif" alt="StellarGames" />
+                <h3>Fortnite Private</h3>
+                <p>Elevate your gameplay with our undetectable and exclusive Fortnite Private Cheat – built for performance and stealth.</p>
+                <a href="https://astroud.sellpass.io/" class="buy-now">Buy Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-we-operate">
+        <div class="how-operate-box" tabindex="0">
+            <h3><span>🛠️</span> Cutting-edge Tech</h3>
+            We use the latest technology to build reliable and innovative software.
+        </div>
+        <div class="how-operate-box" tabindex="0">
+            <h3><span>🌐</span> Global Reach</h3>
+            Serving customers across all galaxies with round-the-clock support.
+        </div>
+        <div class="how-operate-box" tabindex="0">
+            <h3><span>🚀</span> Fast Deployment</h3>
+            Rapid delivery and updates to keep you ahead in the cosmos.
+        </div>
+        <div class="how-operate-box" tabindex="0">
+            <h3><span>🤝</span> Customer Focus</h3>
+            Your satisfaction is our mission priority.
+        </div>
+        <div class="how-operate-box" tabindex="0">
+            <h3><span>🔒</span> Security First</h3>
+            Protecting your data with advanced encryption and privacy standards.
+        </div>
+        <div class="how-operate-box" tabindex="0">
+            <h3><span>✨</span> Innovation Driven</h3>
+            Constantly pushing boundaries to explore new possibilities.
+        </div>
+    </section>
+
+    <section id="reviews">
+        <h2>Customer Reviews</h2>
+        <div class="reviews">
+            <blockquote class="review" tabindex="0">
+                <p>"spoofer is mad ud ❤️ won two tourneys thanks to temp spoofer + private"</p>
+                <cite>- Zotda</cite>
+            </blockquote>
+            <blockquote class="review" tabindex="0">
+                <p>"This spoofer is too underdetected!"</p>
+                <cite>- ! YURI</cite>
+            </blockquote>
+            <blockquote class="review" tabindex="0">
+                <p>"The best services I ever came across."</p>
+                <cite>- Syrxty</cite>
+            </blockquote>
+        </div>
+    </section>
+
+    <section id="contact" tabindex="0" aria-label="Contact Information">
+        <h2>Contact Us</h2>
+        <p>If you need assistance or want to purchase our product, please join our Discord community. Our support team is available
+        to help answer your questions and guide you through the process. Click the button below to connect with us quickly and
+        easily.</p>
+        <a href="https://discord.gg/astrosoftware" target="_blank" rel="noopener noreferrer" class="discord-btn" aria-label="Join our Discord server">Join our Discord</a>
+    </section>
+
+</body>
+
+</html>
